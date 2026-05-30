@@ -2,8 +2,8 @@
 // CONFIGURAÇÃO — preencha com seus dados do Supabase
 // ============================================================
 
-const SUPABASE_URL = https://tamwrirhpnjoqxwxfpla.supabase.co/rest/v1/;
-const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRhbXdyaXJocG5qb3F4d3hmcGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjIzMDQsImV4cCI6MjA5NTczODMwNH0.yafNuSNIJziT_0VHafcjdGoU-HZ5EhwQVTyphRUle2k;
+const SUPABASE_URL = 'https://tamwrirhpnjoqxwxfpla.supabase.co/rest/v1/';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRhbXdyaXJocG5qb3F4d3hmcGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjIzMDQsImV4cCI6MjA5NTczODMwNH0.yafNuSNIJziT_0VHafcjdGoU-HZ5EhwQVTyphRUle2k';
 
 // ============================================================
 // PINs padrão (serão salvos no banco depois do primeiro acesso)
