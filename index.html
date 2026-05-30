@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mesada em Pontos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="screen active">
+  <div class="login-wrap">
+    <div class="login-logo">⭐</div>
+    <h1 class="login-title">Mesada<br>em Pontos</h1>
+    <p class="login-sub">Entre com sua senha para continuar</p>
+    <div class="login-options">
+      <button class="role-btn" data-role="pai">👨 Sou o pai / a mãe</button>
+      <button class="role-btn" data-role="filha">👧 Sou a Filha (13 anos)</button>
+      <button class="role-btn" data-role="filho">👦 Sou o Filho (11 anos)</button>
+    </div>
+    <div class="pin-wrap" id="pin-wrap" style="display:none">
+      <p class="pin-label" id="pin-label">Digite o PIN</p>
+      <div class="pin-dots" id="pin-dots">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="pin-pad">
+        <button class="pin-key" data-n="1">1</button>
+        <button class="pin-key" data-n="2">2</button>
+        <button class="pin-key" data-n="3">3</button>
+        <button class="pin-key" data-n="4">4</button>
+        <button class="pin-key" data-n="5">5</button>
+        <button class="pin-key" data-n="6">6</button>
+        <button class="pin-key" data-n="7">7</button>
+        <button class="pin-key" data-n="8">8</button>
+        <button class="pin-key" data-n="9">9</button>
+        <button class="pin-key pin-clear">⌫</button>
+        <button class="pin-key" data-n="0">0</button>
+        <button class="pin-key pin-ok">✓</button>
+      </div>
+      <p class="pin-error" id="pin-error"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app-screen" class="screen">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-left">
+        <span class="header-logo">⭐</span>
+        <span class="header-title">Mesada em Pontos</span>
+      </div>
+      <div class="header-right">
+        <span class="header-user" id="header-user"></span>
+        <button class="btn-logout" id="btn-logout">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ADMIN VIEW -->
+    <div id="view-admin" class="view" style="display:none">
+      <div class="view-header">
+        <h2 class="view-title">Painel dos pais</h2>
+        <div class="month-label" id="admin-month"></div>
+      </div>
+
+      <!-- Cards dos filhos -->
+      <div class="kids-grid" id="kids-cards"></div>
+
+      <!-- Adicionar evento -->
+      <section class="section-card">
+        <h3 class="section-title">Registrar evento</h3>
+        <div class="form-row">
+          <select class="inp" id="ev-kid">
+            <option value="filha">👧 Filha</option>
+            <option value="filho">👦 Filho</option>
+          </select>
+          <select class="inp" id="ev-type">
+            <option value="ganho">✅ Ganhou pontos</option>
+            <option value="perda">❌ Perdeu pontos</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <select class="inp" id="ev-action" style="flex:2"></select>
+          <input class="inp" id="ev-pts" type="number" placeholder="Pts" style="width:80px" min="1" max="50">
+        </div>
+        <input class="inp" id="ev-note" placeholder="Observação (opcional)" style="width:100%">
+        <button class="btn-primary" id="btn-add-ev">Registrar evento</button>
+      </section>
+
+      <!-- Histórico -->
+      <section class="section-card">
+        <h3 class="section-title">Histórico do mês</h3>
+        <div id="history-list" class="history-list"></div>
+      </section>
+
+      <!-- Config PINs -->
+      <section class="section-card">
+        <h3 class="section-title">Configurações de PIN</h3>
+        <p class="section-note">PINs padrão: pais = 1234 | filha = 1111 | filho = 2222. Altere abaixo:</p>
+        <div class="pin-config-row">
+          <label>PIN dos pais</label>
+          <input class="inp" id="cfg-pin-pai" type="password" maxlength="4" placeholder="4 dígitos">
+        </div>
+        <div class="pin-config-row">
+          <label>PIN da filha</label>
+          <input class="inp" id="cfg-pin-filha" type="password" maxlength="4" placeholder="4 dígitos">
+        </div>
+        <div class="pin-config-row">
+          <label>PIN do filho</label>
+          <input class="inp" id="cfg-pin-filho" type="password" maxlength="4" placeholder="4 dígitos">
+        </div>
+        <button class="btn-secondary" id="btn-save-pins">Salvar PINs</button>
+      </section>
+    </div>
+
+    <!-- KID VIEW -->
+    <div id="view-kid" class="view" style="display:none">
+      <div class="kid-hero" id="kid-hero">
+        <div class="kid-avatar" id="kid-avatar"></div>
+        <div class="kid-hero-info">
+          <div class="kid-hero-name" id="kid-hero-name"></div>
+          <div class="kid-hero-month" id="kid-hero-month"></div>
+        </div>
+        <div class="kid-pts-big" id="kid-pts-big">0</div>
+        <div class="kid-pts-label">pontos</div>
+      </div>
+
+      <div class="progress-card">
+        <div class="progress-row">
+          <span class="progress-label-txt">Meta: 100 pts = R$ 50,00</span>
+          <span class="progress-pct" id="kid-pct">0%</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="kid-bar"></div>
+        </div>
+        <div class="progress-money">Estimado: <strong id="kid-money">R$ 0,00</strong></div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Histórico do mês</h3>
+        <div id="kid-history" class="history-list"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
