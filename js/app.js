@@ -98,7 +98,7 @@ function enterApp() {
   document.getElementById('login-screen').classList.remove('active');
   document.getElementById('app-screen').classList.add('active');
 
-  const names = { pai: '👨 Pais', filha: '👧 Filha', filho: '👦 Filho' };
+  const names = { pai: '👨 Pais', filha: '👧 Duda', filho: '👦 JC' };
   document.getElementById('header-user').textContent = names[currentRole];
 
   if (currentRole === 'pai') {
@@ -161,8 +161,8 @@ async function loadAdminCards() {
   const ptsFilho = calcPts(evs, 'filho');
 
   document.getElementById('kids-cards').innerHTML = `
-    ${kidCard('filha', '👧', 'Filha', '13 anos', ptsFilha)}
-    ${kidCard('filho', '👦', 'Filho', '11 anos', ptsFilho)}
+    ${kidCard('filha', '👧', 'Duda', '', ptsFilha)}
+    ${kidCard('filho', '👦', 'JC', '', ptsFilho)}
   `;
 }
 
@@ -245,7 +245,7 @@ async function loadHistory(view) {
   container.innerHTML = filtered.map(e => {
     const isPos = e.pts > 0;
     const date = new Date(e.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-    const kidLabel = e.kid === 'filha' ? '👧 Filha' : '👦 Filho';
+    const kidLabel = e.kid === 'filha' ? '👧 Duda' : '👦 JC';
     return `
       <div class="history-item">
         <span class="history-badge ${isPos ? 'pos' : 'neg'}">${isPos ? '+' : ''}${e.pts}</span>
@@ -290,7 +290,7 @@ async function renderKid(role) {
 
   const isFilha = role === 'filha';
   document.getElementById('kid-avatar').textContent = isFilha ? '👧' : '👦';
-  document.getElementById('kid-hero-name').textContent = isFilha ? 'Filha' : 'Filho';
+  document.getElementById('kid-hero-name').textContent = isFilha ? 'Duda' : 'JC';
   document.getElementById('kid-hero-month').textContent = monthLabel();
   document.getElementById('kid-pts-big').textContent = pts;
 
