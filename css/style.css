@@ -326,3 +326,52 @@ body {
   .login-title { font-size: 2.2rem; }
   .kid-pts-big { font-size: 3.5rem; }
 }
+.mes-card {
+  background: var(--bg3);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.mes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.mes-label {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: capitalize;
+  color: var(--text);
+}
+.mes-total {
+  font-size: 0.85rem;
+  color: var(--text2);
+}
+.mes-total strong {
+  color: var(--accent);
+}
+.mes-kids {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mes-kid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: var(--text2);
+}
+.mes-pts {
+  background: var(--bg2);
+  border-radius: 99px;
+  padding: 2px 10px;
+  font-size: 0.8rem;
+}
+.mes-money {
+  color: var(--green);
+  font-weight: 500;
+  margin-left: auto;
+}
