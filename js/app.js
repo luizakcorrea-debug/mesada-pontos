@@ -134,6 +134,7 @@ async function renderAdmin() {
 
   await loadAdminCards();
   await loadHistory('admin');
+  await loadMesesAnteriores();
   loadPinConfig();
 }
 
@@ -306,4 +307,63 @@ async function renderKid(role) {
   }
 
   await loadHistory(role);
+}
+
+// ── MESES ANTERIORES ─────────────────────────────────────────
+async function loadMesesAnteriores() {
+  const container = document.getElementById('historico-meses');
+  container.innerHTML = '<p class="loading">Carregando...</p>';
+
+  // Busca todos os eventos exceto o mês atual
+  const mesAtual = monthKey();
+  const { data: evs } = await db
+    .from('events').select('kid, month, pts')
+    .neq('month', mesAtual)
+    .order('month', { ascending: false });
+
+  if (!evs || evs.length === 0) {
+    container.innerHTML = '<p class="history-empty">Nenhum mês anterior registrado ainda.</p>';
+    return;
+  }
+
+  // Agrupa por mês
+  const meses = {};
+  evs.forEach(e => {
+    if (!meses[e.month]) meses[e.month] = { filha: 0, filho: 0 };
+    meses[e.month][e.kid] = Math.max(0, meses[e.month][e.kid] + e.pts);
+  });
+
+  const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+  container.innerHTML = Object.entries(meses).map(([month, pts]) => {
+    const [ano, mes] = month.split('-');
+    const label = new Date(ano, mes - 1, 1)
+      .toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+    const ptsDuda    = Math.min(pts.filha, 150);
+    const ptsJoaquim = Math.min(pts.filho, 150);
+    const mesadaDuda    = ptsDuda * 0.5;
+    const mesadaJoaquim = ptsJoaquim * 0.5;
+    const total = mesadaDuda + mesadaJoaquim;
+
+    return `
+      <div class="mes-card">
+        <div class="mes-header">
+          <span class="mes-label">${label}</span>
+          <span class="mes-total">Total: <strong>${fmt(total)}</strong></span>
+        </div>
+        <div class="mes-kids">
+          <div class="mes-kid">
+            <span>👧 Duda</span>
+            <span class="mes-pts">${pts.filha} pts</span>
+            <span class="mes-money">${fmt(mesadaDuda)}</span>
+          </div>
+          <div class="mes-kid">
+            <span>👦 Joaquim</span>
+            <span class="mes-pts">${pts.filho} pts</span>
+            <span class="mes-money">${fmt(mesadaJoaquim)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
